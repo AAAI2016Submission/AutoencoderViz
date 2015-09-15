@@ -1,0 +1,46 @@
+{
+    "data": {
+        "input": "hidden_activations/wiki/activations_wiki_vocab15groups_norm_run3_l2/default.txt",
+        "words": "processed_data/wiki/dataset_wiki_vocab15groups_norm_text_run2/worddict.txt",
+        "model": "models/wiki/model_wiki_vocab15groups_norm_run3_l3/",
+        "model_l1": "models/wiki/model_wiki_vocab15groups_norm_run2_l1/60000itrs.txt",
+        "model_l2": "models/wiki/model_wiki_vocab15groups_norm_run3_l2/25000itrs.txt",
+        "features": "features/wiki/features_wiki_vocab15groups_norm_run3_l3/",
+        "contribs": "contribs/wiki/contribs_wiki_vocab15groups_norm_run3_l3/",
+        "generalization": 0.0
+    },
+    "logging": {
+        "file": "logs/wiki/wiki_vocab15groups_norm_text_run3.log",
+        "model_save_itrs": 1,
+        "contribs_save_itrs": 1,
+        "features_save_itrs": 10
+    },
+    "training": {
+        "iterations": 25000,
+        "lr": 0.1,
+        "gpu": false,
+        "trainer": "SGD",
+        "criterion": "MSE"
+    },
+    "network": {
+        "type": "autoencoder",
+        "layers": [
+            {
+                "name": "layer1",
+                "type": "Linear",
+                "n_input": "data",
+                "n_output": 5,
+                "transfer": "Tanh"
+            },
+            {
+                "name": "layer2",
+                "type": "Linear",
+                "n_input": 5,
+                "n_output": "data"
+            }
+        ]
+    },
+    "features": {
+        "word2vecmap": "features/wiki/features_wiki_vocab15groups_norm_run3_l2/25000itrs.txt"
+    }
+}

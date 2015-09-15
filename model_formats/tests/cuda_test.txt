@@ -1,0 +1,42 @@
+{
+    "data": {
+        "input": "processed_data/tests/dataset_wiki_vocab2048_norm_text/out.txt",
+        "words": "processed_data/tests/dataset_wiki_vocab2048_norm_text/worddict.txt",
+        "model": "models/tests/cuda_test_model_wiki_vocab2048_norm_20000itrs.txt",
+        "features": "features/tests/cuda_test_features_wiki_vocab2048_norm_20000itrs_l1.txt",
+        "activations": "hidden_activations/tests/cuda_test_activations_wiki_vocab2048_norm_20000itrs_l1.txt",
+        "contribs": "contribs/tests/cuda_test_contribs_wiki_vocab2048_norm_20000itrs_l1.txt",
+        "generalization": 0.0
+    },
+    "logging": {
+        "file": "logs/tests/cuda_test_wiki_vocab2048_norm_text.log",
+        "save_itrs": 10
+    },
+    "training": {
+        "iterations": 2,
+        "lr": 0.1,
+        "gpu": false,
+        "trainer": "SGD",
+        "criterion": "MSE"
+    },
+    "network": {
+        "type": "autoencoder",
+        "layers": [
+            {
+                "name": "layer1",
+                "type": "Linear",
+                "n_input": "data",
+                "n_output": 50,
+                "transfer": "Tanh"
+            },
+            {
+                "name": "layer2",
+                "type": "Linear",
+                "n_input": 50,
+                "n_output": "data"
+            }
+        ]
+    },
+    "features": {
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "data": {
+        "input": "processed_data/wiki/dataset_wiki_2000vocab_norm_text/out.txt",
+        "words": "processed_data/wiki/dataset_wiki_2000vocab_norm_text/worddict.txt",
+        "model": "models/wiki/model_wiki_2000vocab_norm_50000itrs.txt",
+        "features": "features/wiki/features_wiki_2000vocab_norm_50000itrs_l1.txt",
+        "activations": "hidden_activations/wiki/activations_wiki_2000vocab_norm_50000itrs_l1.txt",
+        "contribs": "contribs/wiki/contribs_wiki_2000vocab_norm_50000itrs_l1.txt",
+        "generalization": 0.0
+    },
+    "logging": {
+        "file": "logs/wiki/wiki_2000vocab_norm_text.log",
+        "save_itrs": 10
+    },
+    "training": {
+        "iterations": 50000,
+        "lr": 0.1,
+        "gpu": false,
+        "trainer": "SGD",
+        "criterion": "MSE"
+    },
+    "network": {
+        "type": "autoencoder",
+        "layers": [
+            {
+                "name": "layer1",
+                "type": "Linear",
+                "n_input": "data",
+                "n_output": 400,
+                "transfer": "Tanh"
+            },
+            {
+                "name": "layer2",
+                "type": "Linear",
+                "n_input": 400,
+                "n_output": "data"
+            }
+        ]
+    },
+    "features": {
+    }
+}

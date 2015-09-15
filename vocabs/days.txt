@@ -1,0 +1,14 @@
+monday
+tuesday
+wednesday
+thursday
+friday
+saturday
+sunday
+city
+town
+county
+apple
+balloon
+vatican
+money

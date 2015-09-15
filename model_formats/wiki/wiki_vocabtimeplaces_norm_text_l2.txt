@@ -1,0 +1,46 @@
+{
+    "data": {
+        "input": "hidden_activations/wiki/activations_wiki_vocabtimeplaces_norm_l1/default.txt",
+        "words": "processed_data/wiki/dataset_wiki_vocabtimeplaces_norm_text/worddict.txt",
+        "model": "models/wiki/model_wiki_vocabtimeplaces_norm_l2/",
+        "model_l1": "models/wiki/model_wiki_vocabtimeplaces_norm_l1/20000itrs.txt",
+        "features": "features/wiki/features_wiki_vocabtimeplaces_norm_l2/",
+        "contribs": "contribs/wiki/contribs_wiki_vocabtimeplaces_norm_l2/",
+        "generalization": 0.0
+    },
+    "logging": {
+        "file": "logs/wiki/wiki_vocabtimeplaces_norm_text.log",
+         "model_save_itrs": 1,
+        "contribs_save_itrs": 1,
+        "features_save_itrs": 10,
+        "hidden_activations_save_itrs": 100
+    },
+    "training": {
+        "iterations": 20000,
+        "lr": 0.1,
+        "gpu": false,
+        "trainer": "SGD",
+        "criterion": "MSE"
+    },
+    "network": {
+        "type": "autoencoder",
+        "layers": [
+            {
+                "name": "layer1",
+                "type": "Linear",
+                "n_input": "data",
+                "n_output": 2,
+                "transfer": "Tanh"
+            },
+            {
+                "name": "layer2",
+                "type": "Linear",
+                "n_input": 2,
+                "n_output": "data"
+            }
+        ]
+    },
+    "features": {
+        "word2vecmap": "features/wiki/features_wiki_vocabtimeplaces_norm_l1/20000itrs.txt"
+    }
+}

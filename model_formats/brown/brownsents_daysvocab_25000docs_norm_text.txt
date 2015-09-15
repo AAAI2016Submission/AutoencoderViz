@@ -1,0 +1,40 @@
+{
+    "data": {
+        "input": "processed_data/brown/dataset_brownsents_daysvocab_25000docs_norm_text/out.txt",
+        "words": "processed_data/brown/dataset_brownsents_daysvocab_25000docs_norm_text/worddict.txt",
+        "model": "models/brown/model_brownsents_daysvocab_25000docs_norm.txt",
+        "features": "features/brown/model_brownsents_daysvocab_25000docs_norm.txt",
+        "generalization": 0.0
+    },
+    "logging": {
+        "file": "logs/brown/brownsents_daysvocab_25000docs_norm_text.log",
+        "save_itrs": 10
+    },
+    "training": {
+        "iterations": 500,
+        "lr": 0.5,
+        "gpu": false,
+        "trainer": "SGD",
+        "criterion": "MSE"
+    },
+    "network": {
+        "type": "autoencoder",
+        "layers": [
+            {
+                "name": "layer1",
+                "type": "Linear",
+                "n_input": "data",
+                "n_output": 3,
+                "transfer": "Tanh"
+            },
+            {
+                "name": "layer2",
+                "type": "Linear",
+                "n_input": 3,
+                "n_output": "data"
+            }
+        ]
+    },
+    "features": {
+    }
+}

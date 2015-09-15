@@ -1,0 +1,45 @@
+{
+    "data": {
+        "input": "processed_data/wiki/dataset_wiki_vocabdaysmonthsbasketballfootball_norm_text/out.txt",
+        "words": "processed_data/wiki/dataset_wiki_vocabdaysmonthsbasketballfootball_norm_text/worddict.txt",
+        "model": "models/wiki/model_wiki_vocabdaysmonthsbasketballfootball_norm_l1/",
+        "features": "features/wiki/features_wiki_vocabdaysmonthsbasketballfootball_norm_l1/",
+        "activations": "hidden_activations/wiki/activations_wiki_vocabdaysmonthsbasketballfootball_norm_l1/",
+        "contribs": "contribs/wiki/contribs_wiki_vocabdaysmonthsbasketballfootball_norm_l1/",
+        "generalization": 0.0
+    },
+    "logging": {
+        "file": "logs/wiki/wiki_vocabdaysmonthsbasketballfootball_norm_text.log",
+        "model_save_itrs": 1,
+        "contribs_save_itrs": 1,
+        "features_save_itrs": 10,
+        "hidden_activations_save_itrs": 100
+    },
+    "training": {
+        "iterations": 20000,
+        "lr": 0.1,
+        "gpu": false,
+        "trainer": "SGD",
+        "criterion": "MSE"
+    },
+    "network": {
+        "type": "autoencoder",
+        "layers": [
+            {
+                "name": "layer1",
+                "type": "Linear",
+                "n_input": "data",
+                "n_output": 4,
+                "transfer": "Tanh"
+            },
+            {
+                "name": "layer2",
+                "type": "Linear",
+                "n_input": 4,
+                "n_output": "data"
+            }
+        ]
+    },
+    "features": {
+    }
+}

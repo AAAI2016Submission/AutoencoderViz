@@ -1,0 +1,41 @@
+{
+    "data": {
+        "input": "hidden_activations/wiki/activations_wiki_2groupvocab_norm_20000itrs_l1.txt",
+        "words": "processed_data/wiki/dataset_wiki_2groupvocab_norm_text/worddict.txt",
+        "model": "models/wiki/model_wiki_2groupvocab_norm_10000itrs_l2.txt",
+        "features": "features/wiki/features_wiki_2groupvocab_norm_10000itrs_l2.txt",
+        "generalization": 0.0
+    },
+    "logging": {
+        "file": "logs/wiki/wiki_2groupvocab_norm_text_l2.log",
+        "save_itrs": 10
+    },
+    "training": {
+        "iterations": 10000,
+        "lr": 0.1,
+        "gpu": false,
+        "trainer": "SGD",
+        "criterion": "MSE"
+    },
+    "network": {
+        "type": "autoencoder",
+        "layers": [
+            {
+                "name": "layer1",
+                "type": "Linear",
+                "n_input": "data",
+                "n_output": 2,
+                "transfer": "Tanh"
+            },
+            {
+                "name": "layer2",
+                "type": "Linear",
+                "n_input": 2,
+                "n_output": "data"
+            }
+        ]
+    },
+    "features": {
+        "word2vecmap": "features/wiki/features_wiki_2groupvocab_norm_20000itrs_l1.txt"
+    }
+}

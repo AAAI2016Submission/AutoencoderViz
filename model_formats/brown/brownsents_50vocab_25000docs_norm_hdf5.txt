@@ -1,0 +1,40 @@
+{
+    "data": {
+        "input": "processed_data/brown/dataset_brownsents_50vocab_25000docs_norm_hdf5/out.h5",
+        "words": "processed_data/brown/dataset_brownsents_50vocab_25000docs_norm_hdf5/worddict.txt",
+        "model": "models/brown/model_brownsents_50vocab_25000docs_norm.txt",
+        "features": "features/brown/model_brownsents_50vocab_25000docs_norm.txt",
+        "generalization": 10.0
+    },
+    "logging": {
+        "file": "logs/brown/brownsents_50vocab_25000docs_norm_hdf5.log",
+        "save_itrs": 10
+    },
+    "training": {
+        "iterations": 5000,
+        "lr": 0.1,
+        "gpu": false,
+        "trainer": "SGD",
+        "criterion": "MSE"
+    },
+    "network": {
+        "type": "autoencoder",
+        "layers": [
+            {
+                "name": "layer1",
+                "type": "Linear",
+                "n_input": "data",
+                "n_output": 35,
+                "transfer": "Tanh"
+            },
+            {
+                "name": "layer2",
+                "type": "Linear",
+                "n_input": 35,
+                "n_output": "data"
+            }
+        ]
+    },
+    "features": {
+    }
+}
