@@ -1,0 +1,15 @@
+monday
+tuesday
+wednesday
+thursday
+friday
+saturday
+sunday
+red
+orange
+yellow
+green
+blue
+purple
+white
+black
