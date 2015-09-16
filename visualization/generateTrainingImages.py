@@ -235,7 +235,7 @@ if __name__ == "__main__":
     wordDictFile = args.worddict
     imageDir = args.imagedir
     
-    if (contribsDirL1 == None or contribsDirL2 == None or wordDictFile == None or imageDir == None):
+    if (contribsDirL1 == None or wordDictFile == None or imageDir == None):
         print ("Must supply contrib dir and word dict and imageDir")
         sys.exit(1)
         
@@ -247,10 +247,15 @@ if __name__ == "__main__":
     # load data
     wordBidict = readWordDict(wordDictFile)
     sortedFilesL1 = findContribFiles(contribsDirL1)
-    sortedFilesL2 = findContribFiles(contribsDirL2)
+    
+    sortedFilesL2 = None
+    if (contribsDirL2 != None):
+        sortedFilesL2 = findContribFiles(contribsDirL2)
+    
     sortedFilesL3 = None
     if (contribsDirL3 != None):
         sortedFilesL3 = findContribFiles(contribsDirL3)
+    
     
     maxwords = None if args.maxwords == None else int(args.maxwords)
     normMin = float(args.normmin)
@@ -275,14 +280,19 @@ if __name__ == "__main__":
     finalImgL2 = None
     
     numFilesL1 = len(sortedFilesL1)
-    numFilesL2 = len(sortedFilesL2)
+    numFilesL2 = None
+    if (sortedFilesL2 != None):
+        numFilesL2 = len(sortedFilesL2)
     numFilesL3 = None
     if (sortedFilesL3 != None):
         numFilesL3 = len(sortedFilesL3)
         
     
     numNodesL1 = len(readContribs(os.path.join(contribsDirL1, sortedFilesL1[0]), wordBidict))
-    numNodesL2 = len(readContribs(os.path.join(contribsDirL2, sortedFilesL2[0]), wordBidict))
+    numNodesL2 = None
+    if (contribsDirL2 != None):
+        numNodesL2 = len(readContribs(os.path.join(contribsDirL2, sortedFilesL2[0]), wordBidict))
+    
     numNodesL3 = None
     if (contribsDirL3 != None):
         numNodesL3 = len(readContribs(os.path.join(contribsDirL3, sortedFilesL3[0]), wordBidict))
@@ -293,14 +303,17 @@ if __name__ == "__main__":
     start = len(prevFiles)
     
     # assume 2 layers for now
-    nLayers = 2 if contribsDirL3 == None else 3
-    
+    nLayers = 1
+    if (contribsDirL2 != None):
+        nLayers += 1
+    if (contribsDirL3 != None):
+        nLayers += 1
+        
     # digits in file name
     znum = 8
     
     c = start
     
-    c = 109975
     while (c < numFilesL1):
         contribFile = sortedFilesL1[c]
         path = os.path.join(contribsDirL1, contribFile)            
@@ -349,41 +362,41 @@ if __name__ == "__main__":
         path = os.path.join(imageDir, str(numFilesL1).zfill(znum) + '.png')
         finalImgL1 = Image.open(path)
         
-
-    while (c < (numFilesL1 + numFilesL2) ):
-    
-        contribFile = sortedFilesL2[c - numFilesL1]
-        path = os.path.join(contribsDirL2, contribFile)
-        contribs = readContribs(path, wordBidict)
+    if (numFilesL2 != None):
+        while (c < (numFilesL1 + numFilesL2) ):
         
-        # copy image from finalImgL1
-        img = finalImgL1.copy()
-                        
-        print ("Computing image for contrib at ", path)
-        
-        nodesToSpace = (numNodesL1 - numNodesL2) / 2.0
-        nodeOffset = round(nodesToSpace * wordCloudSize[0] + int(nodesToSpace) * padding[0])
-        
-        # gen word cloud for each node
-        for n in range(numNodesL2):
-            wcImage = generateWordCloud(n, contribs, circle_mask, maxwords, normalize, normMin, normMax).to_image() #.resize(wordCloudSize); made mask 300x300 so don't need to resize
+            contribFile = sortedFilesL2[c - numFilesL1]
+            path = os.path.join(contribsDirL2, contribFile)
+            contribs = readContribs(path, wordBidict)
             
-            # find desired location
-            # 0,0 is at top left of image
+            # copy image from finalImgL1
+            img = finalImgL1.copy()
+                            
+            print ("Computing image for contrib at ", path)
             
-            #           offset to center L2 + word cloud x start     + padding width    + left margin
-            position = (nodeOffset          + (n * wordCloudSize[0]) + (n * padding[0]) + margins[0],
-            #           word cloud y start 
-                        margins[1] + padding[1] + wordCloudSize[1])
-        
-            img.paste(wcImage, position)
-        
-        # image number matches the iteration
-        # make c 1-indexed not 0-indexed
-        img.save(os.path.join(imageDir, str(c+1).zfill(znum) + '.png'), "PNG")            
+            nodesToSpace = (numNodesL1 - numNodesL2) / 2.0
+            nodeOffset = round(nodesToSpace * wordCloudSize[0] + int(nodesToSpace) * padding[0])
             
-        c += 1
-        
+            # gen word cloud for each node
+            for n in range(numNodesL2):
+                wcImage = generateWordCloud(n, contribs, circle_mask, maxwords, normalize, normMin, normMax).to_image() #.resize(wordCloudSize); made mask 300x300 so don't need to resize
+                
+                # find desired location
+                # 0,0 is at top left of image
+                
+                #           offset to center L2 + word cloud x start     + padding width    + left margin
+                position = (nodeOffset          + (n * wordCloudSize[0]) + (n * padding[0]) + margins[0],
+                #           word cloud y start 
+                            margins[1] + padding[1] + wordCloudSize[1])
+            
+                img.paste(wcImage, position)
+            
+            # image number matches the iteration
+            # make c 1-indexed not 0-indexed
+            img.save(os.path.join(imageDir, str(c+1).zfill(znum) + '.png'), "PNG")            
+                
+            c += 1
+     
      
     if (finalImgL2 == None):
         # load last img
