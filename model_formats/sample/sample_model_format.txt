@@ -1,0 +1,45 @@
+{
+    "data": {
+        "input": "processed_data/sample/out.txt",
+        "words": "processed_data/sample/worddict.txt",
+        "model": "models/sample/models/",
+        "features": "features/sample/features/",
+        "contribs": "contribs/sample/contribs/",
+        "hidden_activations": "hidden_activations/sample/activations/",
+        "generalization": 0.0
+    },
+    "logging": {
+        "file": "logs/sample/sample_run.log",
+        "model_save_itrs": 1,
+        "contribs_save_itrs": 1,
+        "features_save_itrs": 10,
+        "hidden_activations_save_itrs": 10
+    },
+    "training": {
+        "iterations": 10000,
+        "lr": 0.1,
+        "gpu": false,
+        "trainer": "SGD",
+        "criterion": "MSE"
+    },
+    "network": {
+        "type": "autoencoder",
+        "layers": [
+            {
+                "name": "layer1",
+                "type": "Linear",
+                "n_input": "data",
+                "n_output": 2,
+                "transfer": "Tanh"
+            },
+            {
+                "name": "layer2",
+                "type": "Linear",
+                "n_input": 2,
+                "n_output": "data"
+            }
+        ]
+    },
+    "features": {
+    }
+}

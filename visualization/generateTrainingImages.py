@@ -398,7 +398,7 @@ if __name__ == "__main__":
             c += 1
      
      
-    if (finalImgL2 == None):
+    if (numFilesL2 != None and finalImgL2 == None):
         # load last img
         path = os.path.join(imageDir, str(numFilesL1 + numFilesL2).zfill(znum) + '.png')
         finalImgL2 = Image.open(path)
