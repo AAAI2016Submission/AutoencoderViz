@@ -7,8 +7,8 @@ An autoencoder built specifically to work with and understand how networks learn
   * Numpy + Scipy for python3 (best installed using pip3)
   * SciKitLearn for python3 (best installed using pip3)
   * Matplotlib for python3 (best installed using pip3)
-  * [Python word cloud generator ](https://github.com/amueller/word_cloud)
-  * FFmpeg or avconv (part of libav)
+  * [Python word cloud generator](https://github.com/amueller/word_cloud)
+  * [FFmpeg](https://github.com/FFmpeg/FFmpeg)
 
 ## Example usage:
 
@@ -29,10 +29,9 @@ An autoencoder built specifically to work with and understand how networks learn
    * You can look at some of those images. There is one for each iterations, 10000 total. They should be in the visualization/images/sample/ directory.
  6. Generate video from word cloud images.
    * Now using the images generated in the previous step as frames, generate the video.
-   * If you have FFmpeg installed try: `sh sampleGenerateVideoFFMPEG.sh`
-   * If you have avconv installed try: `sh sampleGenerateVideoAvconv.sh`
+   * Using FFmpeg generate the video: `sh sampleGenerateVideoFFmpeg.sh`
    * This step may take a few minutes.
-   * One long, normal-speed video should be generated and saved to visualization/videos/sample_full.[avi|mp4] and one time lapse should be saved to visualization/videos/sample_timelapse.[avi|mp4].
+   * One long, normal-speed video should be generated and saved to visualization/videos/sample/full.mp4 and one time lapse should be saved to visualization/videos/sample/timelapse.mp4.
  
 ## Sample results:
 
