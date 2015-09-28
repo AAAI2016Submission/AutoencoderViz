@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# $1 = path
+# $1 = path to images
 # $2 = framerate
 # $3 = output file name
 
