@@ -1,1 +1,6 @@
 visualization/images/*
+visualization/*
+logs/*
+*.tar.gz
+contribs/*
+processed_data/*

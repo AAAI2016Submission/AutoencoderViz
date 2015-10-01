@@ -1,6 +1,9 @@
 #! /bin/sh
 
-# dataset
+# wiki data 
+rm -rf sample_data/enwik9cleandeddocs
+
+# process dataset
 rm -rf processed_data/sample
 
 # training files
